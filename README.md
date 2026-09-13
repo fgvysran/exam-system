@@ -20,6 +20,20 @@
 - **成绩统计**：单场汇总（平均 / 最高 / 最低 / 及格率）、排名、班级对比、Excel 导出
 - **RBAC 三级权限**：管理员 / 教师 / 学生，接口级角色鉴权、读写分离
 
+## 9大业务模块
+
+| #    | 模块     | 干什么的                                 | 对应后端 Controller                 |
+| ---- | -------- | ---------------------------------------- | ----------------------------------- |
+| 1    | 用户认证 | 登录 / 登出 / 获取当前用户               | AuthController                      |
+| 2    | 题库管理 | 学科、知识点、题目 CRUD + Excel 导入导出 | Subject / KnowledgePoint / Question |
+| 3    | 试卷管理 | 组卷（选题设分排序）、发布               | PaperController                     |
+| 4    | 考试管理 | 创建考试（指定试卷 + 班级 + 时间）       | ExamController                      |
+| 5    | 在线答题 | 学生开始考试、保存、交卷                 | ExamAnswerController                |
+| 6    | 自动判分 | 交卷时客观题自动判分、主观题挂待判       | AnswerServiceImpl（答题服务内）     |
+| 7    | 阅卷     | 教师对待判题打分 + 评语                  | GradingController                   |
+| 8    | 成绩统计 | 汇总 / 排名 / 班级对比 / 导出 Excel      | StatsController                     |
+| 9    | 系统管理 | 班级管理 + 用户（学生 / 教师）管理       | SysClass / SysUser                  |
+
 ## 项目结构
 
 ```
@@ -87,7 +101,7 @@ npm run dev
 
 ### 4. 配置数据库连接
 
-`application.yml` 中数据库连接通过环境变量配置：
+数据库连接参数通过环境变量 / 本地配置文件注入，**密码不写入仓库**：
 
 | 环境变量 | 说明 | 默认值 |
 |---------|------|--------|
@@ -95,9 +109,13 @@ npm run dev
 | `DB_PORT` | 端口 | 3306 |
 | `DB_NAME` | 库名 | exam_system |
 | `DB_USERNAME` | 用户名 | root |
-| `DB_PASSWORD` | 密码 | 123456 |
+| `DB_PASSWORD` | 密码 | 无（必填） |
 
-本地运行时在 IDEA 的 Run Configuration 里设置环境变量，或命令行 `-DDB_PASSWORD=你的密码`。
+密码有 3 种注入方式（任选其一）：
+
+1. **本地配置文件（推荐）**：复制 `exam-backend/.env.properties.example` 为 `exam-backend/.env.properties` 并填入真实密码。该文件已被 `.gitignore` 忽略，`application.yml` 通过 `spring.config.import` 自动加载。
+2. **环境变量**：在 IDEA 的 Run Configuration 里设置 `DB_PASSWORD`，或命令行 `-DDB_PASSWORD=你的密码`。
+3. 其它连接参数（`DB_HOST` / `DB_PORT` / `DB_NAME` / `DB_USERNAME`）同理可用环境变量覆盖。
 
 ### 接口文档
 

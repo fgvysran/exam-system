@@ -56,9 +56,11 @@ CREATE TABLE sys_user (
 
 -- 用户-角色关联表
 CREATE TABLE sys_user_role (
+    id      BIGINT NOT NULL AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
     role_id BIGINT NOT NULL,
-    PRIMARY KEY (user_id, role_id),
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_user_role (user_id, role_id),
     KEY idx_role_id (role_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户角色关联表';
 
@@ -110,9 +112,11 @@ CREATE TABLE question (
 
 -- 题目-知识点关联表 (多对多)
 CREATE TABLE question_knowledge (
+    id                 BIGINT NOT NULL AUTO_INCREMENT,
     question_id        BIGINT NOT NULL,
     knowledge_point_id BIGINT NOT NULL,
-    PRIMARY KEY (question_id, knowledge_point_id)
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_question_knowledge (question_id, knowledge_point_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='题目知识点关联表';
 
 -- 编程题扩展表 (仅题型=7时存在)
@@ -180,9 +184,11 @@ CREATE TABLE exam (
 
 -- 考试-班级关联表 (指定参加考试的班级)
 CREATE TABLE exam_class (
+    id       BIGINT NOT NULL AUTO_INCREMENT,
     exam_id  BIGINT NOT NULL,
     class_id BIGINT NOT NULL,
-    PRIMARY KEY (exam_id, class_id)
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_exam_class (exam_id, class_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='考试班级关联表';
 
 -- 作答记录表 (一次考试一条记录, 承载最终成绩)

@@ -28,3 +28,6 @@ logs/
 # 环境变量/本地配置
 .env
 .env.local
+.env.properties
+application-local.yml
+application-local.properties
