@@ -2,6 +2,7 @@ package com.lbzxks.controller;
 
 import com.lbzxks.common.Result;
 import com.lbzxks.dto.LoginDTO;
+import com.lbzxks.dto.ProfileDTO;
 import com.lbzxks.service.AuthService;
 import com.lbzxks.vo.LoginVO;
 import com.lbzxks.vo.UserInfoVO;
@@ -11,6 +12,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,5 +42,11 @@ public class AuthController {
     @GetMapping("/me")
     public Result<UserInfoVO> me() {
         return Result.success(authService.getCurrentUser());
+    }
+
+    @Operation(summary = "更新当前登录用户资料")
+    @PutMapping("/me")
+    public Result<UserInfoVO> updateProfile(@Valid @RequestBody ProfileDTO dto) {
+        return Result.success(authService.updateProfile(dto));
     }
 }

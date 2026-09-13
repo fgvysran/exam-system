@@ -12,7 +12,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 用户列表(学生/教师), 联表带出班级名和角色
      */
-    @Select("SELECT u.id, u.username, u.real_name, u.class_id, c.class_name, r.role_code, u.status, u.create_time " +
+    @Select("SELECT u.id, u.username, u.real_name, u.class_id, c.class_name, r.role_code, u.status, u.create_time, u.email, u.phone " +
             "FROM sys_user u " +
             "LEFT JOIN sys_class c ON u.class_id = c.id " +
             "JOIN sys_user_role ur ON u.id = ur.user_id " +

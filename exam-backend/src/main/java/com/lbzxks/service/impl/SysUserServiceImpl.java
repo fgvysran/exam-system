@@ -65,6 +65,8 @@ public class SysUserServiceImpl implements SysUserService {
         user.setPassword(BCrypt.hashpw(dto.getPassword(), BCrypt.gensalt()));
         user.setRealName(dto.getRealName());
         user.setClassId(dto.getClassId());
+        user.setEmail(StringUtils.hasText(dto.getEmail()) ? dto.getEmail().trim() : null);
+        user.setPhone(StringUtils.hasText(dto.getPhone()) ? dto.getPhone().trim() : null);
         user.setStatus(1);
         sysUserMapper.insert(user);
 
@@ -90,6 +92,8 @@ public class SysUserServiceImpl implements SysUserService {
         user.setUsername(dto.getUsername());
         user.setRealName(dto.getRealName());
         user.setClassId(dto.getClassId());
+        user.setEmail(StringUtils.hasText(dto.getEmail()) ? dto.getEmail().trim() : null);
+        user.setPhone(StringUtils.hasText(dto.getPhone()) ? dto.getPhone().trim() : null);
         if (StringUtils.hasText(dto.getPassword())) {
             user.setPassword(BCrypt.hashpw(dto.getPassword(), BCrypt.gensalt()));
         }

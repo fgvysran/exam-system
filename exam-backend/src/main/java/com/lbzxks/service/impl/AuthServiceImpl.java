@@ -5,6 +5,7 @@ import cn.hutool.crypto.digest.BCrypt;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.lbzxks.common.exception.BusinessException;
 import com.lbzxks.dto.LoginDTO;
+import com.lbzxks.dto.ProfileDTO;
 import com.lbzxks.entity.SysRole;
 import com.lbzxks.entity.SysUser;
 import com.lbzxks.mapper.SysRoleMapper;
@@ -14,6 +15,7 @@ import com.lbzxks.vo.LoginVO;
 import com.lbzxks.vo.UserInfoVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -77,5 +79,18 @@ public class AuthServiceImpl implements AuthService {
         vo.setPhone(user.getPhone());
         vo.setRoles(roles);
         return vo;
+    }
+
+    @Override
+    public UserInfoVO updateProfile(ProfileDTO dto) {
+        long userId = StpUtil.getLoginIdAsLong();
+        SysUser user = userMapper.selectById(userId);
+        if (user == null) {
+            throw new BusinessException("用户不存在");
+        }
+        user.setEmail(StringUtils.hasText(dto.getEmail()) ? dto.getEmail().trim() : null);
+        user.setPhone(StringUtils.hasText(dto.getPhone()) ? dto.getPhone().trim() : null);
+        userMapper.updateById(user);
+        return getCurrentUser();
     }
 }

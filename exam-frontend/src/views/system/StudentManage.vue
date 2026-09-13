@@ -17,6 +17,8 @@
       <el-table-column prop="id" label="ID" width="70" />
       <el-table-column prop="username" label="用户名" width="140" />
       <el-table-column prop="realName" label="姓名" width="120" />
+      <el-table-column prop="email" label="邮箱" width="180" />
+      <el-table-column prop="phone" label="手机号" width="130" />
       <el-table-column label="角色" width="90">
         <template #default="{ row }">
           <el-tag :type="row.roleCode === 'TEACHER' ? 'warning' : 'success'">
@@ -59,6 +61,12 @@
       <el-form-item label="姓名" prop="realName">
         <el-input v-model="form.realName" />
       </el-form-item>
+      <el-form-item label="邮箱" prop="email">
+        <el-input v-model="form.email" placeholder="选填" />
+      </el-form-item>
+      <el-form-item label="手机号" prop="phone">
+        <el-input v-model="form.phone" placeholder="选填" />
+      </el-form-item>
       <el-form-item label="角色">
         <el-radio-group v-model="form.role" :disabled="!!form.id">
           <el-radio value="STUDENT">学生</el-radio>
@@ -94,11 +102,13 @@ const query = reactive({ pageNum: 1, pageSize: 10, role: null, classId: null, ke
 
 const dialogVisible = ref(false)
 const formRef = ref()
-const form = reactive({ id: null, username: '', realName: '', role: 'STUDENT', password: '', classId: null })
+const form = reactive({ id: null, username: '', realName: '', role: 'STUDENT', password: '', classId: null, email: '', phone: '' })
 const rules = {
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
   realName: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-  password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+  email: [{ type: 'email', message: '邮箱格式不正确', trigger: 'blur' }],
+  phone: [{ pattern: /^1[3-9]\d{9}$/, message: '手机号格式不正确', trigger: 'blur' }]
 }
 
 async function load() {
@@ -113,14 +123,15 @@ function search() {
 }
 
 function openAdd() {
-  Object.assign(form, { id: null, username: '', realName: '', role: 'STUDENT', password: '', classId: null })
+  Object.assign(form, { id: null, username: '', realName: '', role: 'STUDENT', password: '', classId: null, email: '', phone: '' })
   dialogVisible.value = true
 }
 
 function openEdit(row) {
   Object.assign(form, {
     id: row.id, username: row.username, realName: row.realName,
-    role: row.roleCode || 'STUDENT', password: '', classId: row.classId
+    role: row.roleCode || 'STUDENT', password: '', classId: row.classId,
+    email: row.email || '', phone: row.phone || ''
   })
   dialogVisible.value = true
 }

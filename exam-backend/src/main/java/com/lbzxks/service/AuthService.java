@@ -1,6 +1,7 @@
 package com.lbzxks.service;
 
 import com.lbzxks.dto.LoginDTO;
+import com.lbzxks.dto.ProfileDTO;
 import com.lbzxks.vo.LoginVO;
 import com.lbzxks.vo.UserInfoVO;
 
@@ -11,4 +12,6 @@ public interface AuthService {
     void logout();
 
     UserInfoVO getCurrentUser();
+
+    UserInfoVO updateProfile(ProfileDTO dto);
 }

@@ -19,6 +19,12 @@ const routes = [
         meta: { title: '首页' }
       },
       {
+        path: 'profile',
+        name: 'Profile',
+        component: () => import('@/views/Profile.vue'),
+        meta: { title: '个人设置' }
+      },
+      {
         path: 'subject',
         name: 'Subject',
         component: () => import('@/views/question/SubjectManage.vue'),

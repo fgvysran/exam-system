@@ -14,6 +14,11 @@
           <span>首页</span>
         </el-menu-item>
 
+        <el-menu-item index="/profile">
+          <el-icon><Setting /></el-icon>
+          <span>个人设置</span>
+        </el-menu-item>
+
         <el-sub-menu v-if="isTeacher" index="question-bank">
           <template #title>
             <el-icon><Collection /></el-icon>
@@ -80,7 +85,7 @@
 import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/store/user'
-import { HomeFilled, Collection, Document, Calendar, School, UserFilled, EditPen, Finished, TrendCharts } from '@element-plus/icons-vue'
+import { HomeFilled, Collection, Document, Calendar, School, UserFilled, EditPen, Finished, TrendCharts, Setting } from '@element-plus/icons-vue'
 
 const router = useRouter()
 const userStore = useUserStore()

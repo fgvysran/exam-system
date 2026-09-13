@@ -11,3 +11,7 @@ export function logout() {
 export function getCurrentUser() {
   return request.get('/auth/me')
 }
+
+export function updateProfile(data) {
+  return request.put('/auth/me', data)
+}

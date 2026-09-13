@@ -16,6 +16,10 @@ public class UserListVO {
 
     private String realName;
 
+    private String email;
+
+    private String phone;
+
     private Long classId;
 
     private String className;
