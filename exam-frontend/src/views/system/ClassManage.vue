@@ -17,7 +17,7 @@
     </el-table>
   </el-card>
 
-  <el-dialog v-model="dialogVisible" :title="form.id ? '编辑班级' : '新增班级'" width="420px">
+  <el-dialog v-model="dialogVisible" :title="form.id ? '编辑班级' : '新增班级'" width="420px" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="form" :rules="rules" ref="formRef" label-width="80px" @submit.prevent="handleSave">
       <el-form-item label="名称" prop="className">
         <el-input v-model="form.className" />

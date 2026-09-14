@@ -5,6 +5,7 @@
         <el-option v-for="e in exams" :key="e.id" :label="e.name" :value="e.id" />
       </el-select>
       <el-button type="primary" @click="load">刷新</el-button>
+      <el-button type="warning" :disabled="!examId" @click="handleRegrade">重新自动判分</el-button>
     </div>
 
     <el-table :data="list" border>
@@ -33,7 +34,7 @@
     />
   </el-card>
 
-  <el-dialog v-model="dialogVisible" title="阅卷" width="640px">
+  <el-dialog v-model="dialogVisible" title="阅卷" width="640px" :close-on-click-modal="false" :close-on-press-escape="false">
     <div v-if="current">
       <el-descriptions :column="2" border style="margin-bottom: 16px">
         <el-descriptions-item label="考试">{{ current.examName }}</el-descriptions-item>
@@ -71,8 +72,8 @@
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
-import { ElMessage } from 'element-plus'
-import { pendingGrading, gradeAnswer } from '@/api/grading'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { pendingGrading, gradeAnswer, regradeAnswer } from '@/api/grading'
 import { pageExams } from '@/api/exam'
 
 const exams = ref([])
@@ -108,6 +109,21 @@ async function handleSubmit() {
   await gradeAnswer(current.value.detailId, { score: form.score, comment: form.comment })
   ElMessage.success('评分成功')
   dialogVisible.value = false
+  load()
+}
+
+async function handleRegrade() {
+  try {
+    await ElMessageBox.confirm(
+      '将对该场考试所有已交卷记录重新自动判分（保留人工已判分数），是否继续？',
+      '提示',
+      { type: 'warning' }
+    )
+  } catch {
+    return
+  }
+  const res = await regradeAnswer(examId.value)
+  ElMessage.success(`已重新判分 ${res.data} 条记录`)
   load()
 }
 

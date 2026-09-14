@@ -15,4 +15,11 @@ public interface AnswerService {
     ExamResultVO submit(Long examId, List<AnswerDTO> answers);
 
     ExamResultVO result(Long examId);
+
+    /**
+     * 对某场考试所有已交卷记录重新执行自动判分（保留人工已判分数）
+     *
+     * @return 重新判分的记录数
+     */
+    int regrade(Long examId);
 }

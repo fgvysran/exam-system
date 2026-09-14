@@ -19,7 +19,7 @@
     </el-tree>
   </el-card>
 
-  <el-dialog v-model="dialogVisible" :title="form.id ? '编辑知识点' : '新增知识点'" width="420px">
+  <el-dialog v-model="dialogVisible" :title="form.id ? '编辑知识点' : '新增知识点'" width="420px" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="form" :rules="rules" ref="formRef" label-width="80px" @submit.prevent="handleSave">
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name" />

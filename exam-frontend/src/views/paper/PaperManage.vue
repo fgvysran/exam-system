@@ -43,7 +43,7 @@
     />
   </el-card>
 
-  <el-dialog v-model="dialogVisible" :title="form.id ? '编辑试卷' : '新建试卷'" width="520px">
+  <el-dialog v-model="dialogVisible" :title="form.id ? '编辑试卷' : '新建试卷'" width="520px" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="form" :rules="rules" ref="formRef" label-width="80px" @submit.prevent="handleSave">
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name" />

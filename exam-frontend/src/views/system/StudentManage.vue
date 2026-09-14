@@ -53,7 +53,7 @@
     />
   </el-card>
 
-  <el-dialog v-model="dialogVisible" :title="form.id ? '编辑用户' : '新增用户'" width="460px">
+  <el-dialog v-model="dialogVisible" :title="form.id ? '编辑用户' : '新增用户'" width="460px" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="form" :rules="rules" ref="formRef" label-width="90px" @submit.prevent="handleSave">
       <el-form-item label="用户名" prop="username">
         <el-input v-model="form.username" />

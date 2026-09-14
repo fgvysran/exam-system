@@ -63,7 +63,7 @@
   </el-card>
 
   <!-- 新增/编辑 -->
-  <el-dialog v-model="dialogVisible" :title="form.id ? '编辑题目' : '新增题目'" width="760px" top="5vh">
+  <el-dialog v-model="dialogVisible" :title="form.id ? '编辑题目' : '新增题目'" width="760px" top="5vh" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="form" :rules="rules" ref="formRef" label-width="90px" @submit.prevent="handleSave">
       <el-form-item label="学科" prop="subjectId">
         <el-select v-model="form.subjectId" placeholder="选择学科" style="width: 240px">
@@ -190,7 +190,7 @@
   </el-dialog>
 
   <!-- 导入 -->
-  <el-dialog v-model="importVisible" title="批量导入题目" width="460px">
+  <el-dialog v-model="importVisible" title="批量导入题目" width="460px" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form label-width="80px">
       <el-form-item label="学科" required>
         <el-select v-model="importSubjectId" placeholder="选择学科" style="width: 100%">

@@ -4,6 +4,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.lbzxks.common.PageResult;
 import com.lbzxks.common.Result;
 import com.lbzxks.dto.GradeDTO;
+import com.lbzxks.service.AnswerService;
 import com.lbzxks.service.GradingService;
 import com.lbzxks.vo.GradingItemVO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GradingController {
 
     private final GradingService gradingService;
+    private final AnswerService answerService;
 
     @Operation(summary = "待阅卷列表")
     @GetMapping("/pending")
@@ -41,5 +43,12 @@ public class GradingController {
         StpUtil.checkRoleOr("ADMIN", "TEACHER");
         gradingService.grade(detailId, dto);
         return Result.success();
+    }
+
+    @Operation(summary = "重新自动判分")
+    @PostMapping("/regrade")
+    public Result<Integer> regrade(@RequestParam Long examId) {
+        StpUtil.checkRoleOr("ADMIN", "TEACHER");
+        return Result.success(answerService.regrade(examId));
     }
 }

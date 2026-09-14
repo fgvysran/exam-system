@@ -129,6 +129,164 @@ npm run dev
 
 > TODO：补充主要功能界面截图
 
+ ####  登录页：
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\login.png)
+
+####  首页仪表盘
+
+##### 管理员
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\首页仪表盘.png)
+
+##### 老师
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\首页仪表盘老师.png)
+
+##### 学生
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\首页仪表盘学生.png)
+
+#### 题目管理
+
+老师和管理员才有
+
+###### 学科管理
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\学科管理.png)
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\学科管理添加.png)
+
+###### 知识点管理
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\知识点管理树状结构.png)
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\知识点添加.png)
+
+###### 题目管理
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\题目管理.png)
+
+###### 单选题添加
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\单选题添加.png)
+
+###### 多选题添加
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\多选题添加.png)
+
+###### 判断题添加
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\判断题添加.png)
+
+###### 填空题添加
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\填空题添加.png)
+
+###### 简答题添加
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\简答题添加.png)
+
+###### 论述题添加
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\论述题添加.png)
+
+#### 试卷管理
+
+老师和管理员才有
+
+###### 试卷管理
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\试卷管理.png)
+
+###### 试卷管理添加试卷
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\试卷管理添加试卷.png)
+
+###### 试卷管理组卷
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\试卷管理组卷.png)
+
+#### 考试管理
+
+老师和管理员才有
+
+###### 考试管理
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\考试管理.png)
+
+###### 考试管理创建考试
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\考试管理新增考试.png)
+
+###### 考试管理编辑考试
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\考试管理编辑考试.png)
+
+#### 班级管理
+
+管理员才有
+
+###### 班级管理
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\班级管理.png)
+
+###### 班级管理新增班级
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\班级管理新增班级.png)
+
+###### 班级管理编辑班级
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\班级管理编辑编辑班级.png)
+
+###### 班级管理删除班级
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\班级管理删除班级.png)
+
+#### 用户管理
+
+管理员才有
+
+###### 用户管理
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\用户管理.png)
+
+###### 用户管理新增用户
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\用户管理新增用户.png)
+
+###### 用户管理编辑用户
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\用户管理编辑用户.png)
+
+###### 用户管理删除用户
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\用户管理删除用户.png)
+
+#### 阅卷
+
+管理员和老师可以阅卷
+
+###### 阅卷主页
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\阅卷.png)
+
+###### 阅卷批改
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\阅卷批改示例.png)
+
+#### 成绩统计
+
+老师和管理员才可以
+
+###### 成绩统计
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\成绩统计.png)
+
+###### 成绩导出excel
+
+![](C:\Users\30867\Desktop\Desktop2\项目系统\截图\成绩统计导出.png)
+
 ## License
 
 MIT

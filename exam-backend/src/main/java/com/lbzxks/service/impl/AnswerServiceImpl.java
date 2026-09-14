@@ -197,6 +197,64 @@ public class AnswerServiceImpl implements AnswerService {
         examRecordMapper.updateById(record);
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int regrade(Long examId) {
+        List<ExamRecord> records = examRecordMapper.selectList(
+                Wrappers.<ExamRecord>lambdaQuery()
+                        .eq(ExamRecord::getExamId, examId)
+                        .ge(ExamRecord::getStatus, 2));
+        for (ExamRecord record : records) {
+            regradeRecord(record);
+        }
+        return records.size();
+    }
+
+    /**
+     * 重新判分单条作答记录: 自动判分题重新计算, 人工判分题保留已判分数不重置
+     */
+    private void regradeRecord(ExamRecord record) {
+        List<PaperQuestion> pqs = paperQuestionMapper.selectList(
+                Wrappers.<PaperQuestion>lambdaQuery().eq(PaperQuestion::getPaperId, record.getPaperId()));
+        Map<Long, BigDecimal> scoreMap = pqs.stream().collect(
+                Collectors.toMap(PaperQuestion::getQuestionId, PaperQuestion::getScore, (a, b) -> a));
+
+        List<AnswerDetail> details = answerDetailMapper.selectList(
+                Wrappers.<AnswerDetail>lambdaQuery().eq(AnswerDetail::getExamRecordId, record.getId()));
+
+        BigDecimal objective = BigDecimal.ZERO;
+        BigDecimal subjective = BigDecimal.ZERO;
+        int pending = 0;
+        for (AnswerDetail d : details) {
+            Question q = questionMapper.selectById(d.getQuestionId());
+            if (q == null) {
+                continue;
+            }
+            BigDecimal fullScore = scoreMap.getOrDefault(d.getQuestionId(), BigDecimal.ZERO);
+            if (isAutoGradable(q)) {
+                BigDecimal got = grade(q, d.getUserAnswer(), fullScore);
+                boolean fullCredit = fullScore.compareTo(BigDecimal.ZERO) > 0
+                        && got.compareTo(fullScore) == 0;
+                d.setScore(got);
+                d.setIsCorrect(fullCredit ? 1 : 0);
+                d.setJudgeStatus(2);
+                answerDetailMapper.updateById(d);
+                objective = objective.add(got);
+            } else {
+                // 人工判分题: 保留已判分数, 只统计未判数量
+                subjective = subjective.add(d.getScore() == null ? BigDecimal.ZERO : d.getScore());
+                if (d.getJudgeStatus() == null || d.getJudgeStatus() == 0) {
+                    pending++;
+                }
+            }
+        }
+        record.setObjectiveScore(objective);
+        record.setSubjectiveScore(subjective);
+        record.setTotalScore(objective.add(subjective));
+        record.setStatus(pending == 0 ? 3 : 2);
+        examRecordMapper.updateById(record);
+    }
+
     private boolean isAutoGradable(Question q) {
         Integer type = q.getQuestionType();
         if (type == null) {
@@ -278,6 +336,8 @@ public class AnswerServiceImpl implements AnswerService {
         if (s == null || s.isBlank()) {
             return;
         }
+        // 统一全/半角分隔符：中文输入法常打出全角冒号/分号/逗号/竖线，导致权重与得分点解析失败
+        s = s.replace('：', ':').replace('；', ';').replace('，', ',').replace('｜', '|');
         for (String part : s.split("[;；]")) {
             String altsPart = part;
             BigDecimal weight = BigDecimal.ONE;
